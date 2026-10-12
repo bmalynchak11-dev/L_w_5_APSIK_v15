@@ -1,0 +1,34 @@
+groups:
+  - name: shop_recording_rules
+    rules:
+      - record: job:http_requests:rate5m
+        expr: sum by (job) (rate(http_requests_total[5m]))
+
+  - name: shop_alerting_rules
+    rules:
+      - alert: ShopInstanceDown
+        expr: up{job="shop"} == 0
+        for: 1m
+        labels:
+          severity: page
+        annotations:
+          summary: "Сервіс shop недоступний"
+          description: "{{ $labels.instance }}: поточне значення {{ $value | humanize }}"
+
+      - alert: ShopHigh5xxErrors
+        expr: sum(rate(http_requests_total{job="shop", code=~"5.."}[5m])) > 0.05
+        for: 1m
+        labels:
+          severity: ticket
+        annotations:
+          summary: "Високий рівень 5xx помилок у сервісі shop"
+          description: "{{ $labels.instance }}: поточне значення {{ $value | humanize }}"
+
+      - alert: ShopHighInFlightRequests
+        expr: http_requests_in_flight{job="shop"} > 20
+        for: 30s
+        labels:
+          severity: info
+        annotations:
+          summary: "Велика кількість одночасних запитів до shop"
+          description: "{{ $labels.instance }}: поточне значення {{ $value | humanize }}"

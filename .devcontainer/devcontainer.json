@@ -1,8 +1,11 @@
 {
-  "name": "АПСіК: стек спостережуваності (Prometheus, Grafana, Loki)",
-  "image": "mcr.microsoft.com/devcontainers/python:3.12",
+  "name": "APSIK Lab 05",
+  "image": "mcr.microsoft.com/devcontainers/python:3.12-bookworm",
   "features": {
-    "ghcr.io/devcontainers/features/docker-in-docker:2": {}
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {
+      "version": "latest",
+      "enableNonRootDocker": "true"
+    }
   },
   "postCreateCommand": "pip install --user -r requirements.txt",
   "forwardPorts": [3000, 9090, 3100],

@@ -1,0 +1,30 @@
+local.file_match "shop" {
+  path_targets = [
+    {
+      _path = "/var/log/app/*.log",
+      app   = "shop",
+      env   = "lab",
+    },
+  ]
+}
+
+loki.source.file "shop" {
+  targets    = local.file_match.shop.targets
+  forward_to = [loki.process.shop.receiver]
+}
+
+loki.process "shop" {
+  stage.json {
+    expressions = {
+      level = "level"
+    }
+  }
+
+  forward_to = [loki.write.default.receiver]
+}
+
+loki.write "default" {
+  endpoint {
+    url = "http://loki:3100/loki/api/v1/push"
+  }
+}

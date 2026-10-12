@@ -1,0 +1,43 @@
+# HELP http_requests_total Кількість оброблених запитів.
+# TYPE http_requests_total counter
+http_requests_total{method="GET",path="/",code="200"} 31
+http_requests_total{method="GET",path="/orders",code="200"} 28
+http_requests_total{method="GET",path="/orders",code="500"} 1
+http_requests_total{method="GET",path="/pay",code="200"} 25
+http_requests_total{method="GET",path="/pay",code="500"} 3
+# HELP http_requests_in_flight Запити, що обробляються зараз.
+# TYPE http_requests_in_flight gauge
+http_requests_in_flight 0
+# HELP http_request_duration_seconds Тривалість обробки запиту.
+# TYPE http_request_duration_seconds histogram
+http_request_duration_seconds_bucket{path="/",le="0.05"} 31
+http_request_duration_seconds_bucket{path="/",le="0.1"} 31
+http_request_duration_seconds_bucket{path="/",le="0.25"} 31
+http_request_duration_seconds_bucket{path="/",le="0.5"} 31
+http_request_duration_seconds_bucket{path="/",le="1.0"} 31
+http_request_duration_seconds_bucket{path="/",le="2.5"} 31
+http_request_duration_seconds_bucket{path="/",le="+Inf"} 31
+http_request_duration_seconds_sum{path="/"} 0.738334
+http_request_duration_seconds_count{path="/"} 31
+http_request_duration_seconds_bucket{path="/orders",le="0.05"} 5
+http_request_duration_seconds_bucket{path="/orders",le="0.1"} 16
+http_request_duration_seconds_bucket{path="/orders",le="0.25"} 29
+http_request_duration_seconds_bucket{path="/orders",le="0.5"} 29
+http_request_duration_seconds_bucket{path="/orders",le="1.0"} 29
+http_request_duration_seconds_bucket{path="/orders",le="2.5"} 29
+http_request_duration_seconds_bucket{path="/orders",le="+Inf"} 29
+http_request_duration_seconds_sum{path="/orders"} 2.643114
+http_request_duration_seconds_count{path="/orders"} 29
+http_request_duration_seconds_bucket{path="/pay",le="0.05"} 0
+http_request_duration_seconds_bucket{path="/pay",le="0.1"} 0
+http_request_duration_seconds_bucket{path="/pay",le="0.25"} 14
+http_request_duration_seconds_bucket{path="/pay",le="0.5"} 28
+http_request_duration_seconds_bucket{path="/pay",le="1.0"} 28
+http_request_duration_seconds_bucket{path="/pay",le="2.5"} 28
+http_request_duration_seconds_bucket{path="/pay",le="+Inf"} 28
+http_request_duration_seconds_sum{path="/pay"} 7.316597
+http_request_duration_seconds_count{path="/pay"} 28
+# HELP process_start_time_seconds Час запуску процесу.
+# TYPE process_start_time_seconds gauge
+process_start_time_seconds 1791840600
+
